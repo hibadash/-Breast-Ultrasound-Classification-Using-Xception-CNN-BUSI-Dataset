@@ -1,0 +1,3 @@
+Ce dossier contiendra :
+- Les figures générées (`confusion_matrix.png`, `roc_curve.png`, etc.)
+- Le modèle entraîné `model_xception_best.h5`

@@ -1,0 +1,42 @@
+# =======================
+# BASE DU PROJET
+# =======================
+
+numpy>=1.23             # Calcul numérique (tableaux, opérations mathématiques)
+pandas>=2.0             # Manipulation de données (chargement, nettoyage, CSV)
+matplotlib>=3.7         # Graphiques et visualisations simples
+seaborn>=0.12           # Visualisations statistiques plus jolies (heatmaps, etc.)
+scikit-learn>=1.3       # Évaluation (Accuracy, F1-score, ROC...), split des données
+opencv-python>=4.7      # Lecture, redimensionnement et traitement d’images
+Pillow>=9.5             # Manipulation d’images (lecture/sauvegarde avec PIL)
+
+# =======================
+# DEEP LEARNING
+# =======================
+
+tensorflow>=2.15        # Framework principal pour le Deep Learning
+keras>=2.15             # API haut niveau intégrée à TensorFlow
+imgaug>=0.4.0           # Data augmentation avancée pour améliorer l’entraînement
+
+# =======================
+# INTERFACE UTILISATEUR
+# =======================
+
+streamlit>=1.38         # Création de l’interface web interactive
+protobuf<5              # Nécessaire pour compatibilité Streamlit + TensorFlow
+altair<5                # Librairie graphique utilisée en interne par Streamlit
+
+# =======================
+# DÉVELOPPEMENT / TESTS
+# =======================
+
+jupyter>=1.0            # Permet d’ouvrir et exécuter des notebooks localement
+notebook                # Environnement notebook classique
+ipykernel               # Support pour exécuter les notebooks dans VS Code
+pytest                  # Pour tester les fonctions Python si besoin (qualité du code)
+
+# =======================
+# VISUALISATION AVANCÉE (optionnelle)
+# =======================
+
+plotly                  # Visualisations interactives (courbes ROC, 3D, etc.)
