@@ -3,33 +3,50 @@ Module: preprocess.py
 Description: Fonctions de prétraitement pour les images du dataset BUSI.
 """
 
-import os
-import cv2
-import numpy as np
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+# -----------------------------
+# Imports
+# -----------------------------
+import tensorflow as tf
 
-def load_image(path):
-    """Charge une image et la convertit en RGB."""
-    img = cv2.imread(path)
-    return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+# -----------------------------
+# Configuration de base
+# -----------------------------
+IMAGE_SIZE = (224, 224)
+BATCH_SIZE = 32
+DATASET_DIR = 'Dataset_BUSI'  
 
-def resize_image(img, size=(224, 224)):
-    """Redimensionne une image."""
-    return cv2.resize(img, size)
+# -----------------------------
+# Générateur pour l'entraînement
+# -----------------------------
+train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+train_generator = train_datagen.flow_from_directory(
+    f'{DATASET_DIR}/train',
+    target_size=IMAGE_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='binary'
+)
 
-def augment_data():
-    """Retourne un générateur d’augmentation d’images."""
-    return ImageDataGenerator(
-        rotation_range=20,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
-        horizontal_flip=True,
-        rescale=1./255
-    )
-# TODO: ajouter fonction pour diviser en train/test et sauvegarder en npz
-# test avec colab 
-def say_hello(name):
-    return f"Hello {name}, preprocessing is ready!"
+# -----------------------------
+# Générateur pour la validation
+# -----------------------------
+val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+val_generator = val_datagen.flow_from_directory(
+    f'{DATASET_DIR}/validation',
+    target_size=IMAGE_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='binary'
+)
 
+# -----------------------------
+# Générateur pour le test
+# -----------------------------
+test_datagen = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1./255)
+test_generator = test_datagen.flow_from_directory(
+    f'{DATASET_DIR}/test',
+    target_size=IMAGE_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='binary',
+    shuffle=False  # Important pour l'évaluation
+)
 
-
+print("Préprocessing prêt : train, validation et test chargés !")
