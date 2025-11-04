@@ -26,5 +26,10 @@ def augment_data():
         horizontal_flip=True,
         rescale=1./255
     )
-
 # TODO: ajouter fonction pour diviser en train/test et sauvegarder en npz
+# test avec colab 
+def say_hello(name):
+    return f"Hello {name}, preprocessing is ready!"
+
+
+
