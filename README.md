@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 
 
-# Classifier une image
+# Apercu des images à classifier (Type Échographie )
 ![Apercu des images à classifier](overview/Overview.png)
 
 
