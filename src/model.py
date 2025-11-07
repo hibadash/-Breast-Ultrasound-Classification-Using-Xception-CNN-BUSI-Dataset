@@ -56,7 +56,7 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
     #Remarque : GlobalAveragePooling2D résume chaque feature map en une seule valeur
     # ceci réduit les paramètres et stabilise l’entraînement  en conservant l’information essentielle pour les couches Dense.
     #  Donc on a pas besoin de FLATTEN ici.
-    
+
     # On crée le modèle final 
     model = Model(inputs=base_model.input, outputs=predictions)
     
