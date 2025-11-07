@@ -5,7 +5,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.layers import Dropout, BatchNormalization
 
-def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=False):
+def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=False):
     """
     Charge le modèle Xception pré-entraîné avec des poids ImageNet.
     Les couches de base sont gelées par défaut pour le Transfer Learning.
@@ -41,7 +41,7 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=Fals
     x = BatchNormalization()(x)
     # J'ajoute le dropout :)
     x = Dropout(0.4)(x)
-    
+
     x = Dense(256, activation='relu')(x) 
     # Normalisation après la couche Dense 2
     x = BatchNormalization()(x)
@@ -49,10 +49,15 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=Fals
     x = Dropout(0.3)(x)
 
 
-    # Couche finale pour classification binaire (num_classes)
+    # On ajoute une couche finale pour classification de 3 classes (bénign, normal, malin)
+    # On a utilisé Softmax pour obtenir des probabilités pour chaque classe (le cas multi-classes)
     predictions = Dense(num_classes, activation='softmax')(x)
     
-    # Créer le modèle complet
+    #Remarque : GlobalAveragePooling2D résume chaque feature map en une seule valeur
+    # ceci réduit les paramètres et stabilise l’entraînement  en conservant l’information essentielle pour les couches Dense.
+    #  Donc on a pas besoin de FLATTEN ici.
+    
+    # On crée le modèle final 
     model = Model(inputs=base_model.input, outputs=predictions)
     
     return model
