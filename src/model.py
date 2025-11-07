@@ -3,6 +3,7 @@
 from tensorflow.keras.applications import Xception
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+from tensorflow.keras.layers import Dropout, BatchNormalization
 
 def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=False):
     """
@@ -33,10 +34,17 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=Fals
 
     # Hiba: Ici les couches Dense sont ajoutées pour extraire des features spécifiques à notre dataset .
     # j'ai choisis 512 puis 256 neurones pour capturer progressivement des patterns complexes :)
-    x = Dense(512, activation='relu')(x)
+
+    x = Dense(512, activation='relu')(x) # Activation est RELU
+    # Normalisation des activations de la couche Dense pour stabiliser et accélérer l'entraînement
+
+    x = BatchNormalization()(x)
     # J'ajoute le dropout :)
     x = Dropout(0.4)(x)
-    x = Dense(256, activation='relu')(x)
+    
+    x = Dense(256, activation='relu')(x) 
+    # Normalisation après la couche Dense 2
+    x = BatchNormalization()(x)
     # J'applique le dropout aux couches Dense pour éviter l'overfitting et améliorer la généralisation du modèle sur d'autres images hors notre dataset de train.
     x = Dropout(0.3)(x)
 
