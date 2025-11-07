@@ -31,12 +31,16 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=2, trainable=Fals
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
 
-    # Hiba:  Ajouter des couches Dense personnalisées pour apprendre des représentations spécifiques
-    # à notre dataset, avec 512 puis 256 neurones pour capturer progressivement des patterns complexes depuis la dataset
+    # Hiba: Ici les couches Dense sont ajoutées pour extraire des features spécifiques à notre dataset .
+    # j'ai choisis 512 puis 256 neurones pour capturer progressivement des patterns complexes :)
     x = Dense(512, activation='relu')(x)
+    # J'ajoute le dropout :)
+    x = Dropout(0.4)(x)
     x = Dense(256, activation='relu')(x)
+    # J'applique le dropout aux couches Dense pour éviter l'overfitting et améliorer la généralisation du modèle sur d'autres images hors notre dataset de train.
+    x = Dropout(0.3)(x)
 
-    
+
     # Couche finale pour classification binaire (num_classes)
     predictions = Dense(num_classes, activation='softmax')(x)
     
