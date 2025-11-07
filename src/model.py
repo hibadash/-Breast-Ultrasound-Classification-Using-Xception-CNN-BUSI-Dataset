@@ -58,7 +58,7 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
     #  Donc on a pas besoin de FLATTEN ici.
 
     # On crée le modèle final 
-    model = Model(inputs=base_model.input, outputs=predictions)
+    model = Model(inputs=base_model.input, outputs=predictions) 
     
     return model
 
