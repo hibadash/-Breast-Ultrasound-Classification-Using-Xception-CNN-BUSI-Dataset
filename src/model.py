@@ -4,6 +4,7 @@ from tensorflow.keras.applications import Xception
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.layers import Dropout, BatchNormalization
+from tensorflow.keras.optimizers import Adam
 
 def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=False):
     """
@@ -59,10 +60,22 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
 
     # On crée le modèle final 
     model = Model(inputs=base_model.input, outputs=predictions) 
-    
+    # Compiler le modèle pour multi-classes
+
+    model.compile(
+        optimizer=Adam(learning_rate=1e-4),  # Optimizer Adam avec learning rate 0.0001
+        loss='categorical_crossentropy',  # On utilise la cross-entropy puisque la classification est multi-classes
+        metrics=['accuracy'] # On suit la précision comme métrique
+    )
+
+
     return model
 
 # Exemple d'utilisation (pour debug ou notebook)
 if __name__ == "__main__":
     model = load_xception_model()
+    # On vérifie la compilation du modèle (Information utile pour debug)
+    print(model.optimizer)  # optimiseur utilisé
+    print(model.loss)       # fonction de perte utilisée
+    print(model.metrics)    # quelle métrique est suivie
     model.summary()
