@@ -33,12 +33,10 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
 
-    # Hiba: Ici les couches Dense sont ajoutées pour extraire des features spécifiques à notre dataset .
-    # j'ai choisis 512 puis 256 neurones pour capturer progressivement des patterns complexes :)
-
+    # Hiba: Ici les couches Dense sont ajoutées pour extraire des features spécifiques à notre dataset.
+    # J'ai choisi 512 puis 256 neurones pour capturer progressivement des patterns complexes :)
     x = Dense(512, activation='relu')(x) # Activation est RELU
     # Normalisation des activations de la couche Dense pour stabiliser et accélérer l'entraînement
-
     x = BatchNormalization()(x)
     # J'ajoute le dropout :)
     x = Dropout(0.4)(x)
@@ -46,36 +44,34 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
     x = Dense(256, activation='relu')(x) 
     # Normalisation après la couche Dense 2
     x = BatchNormalization()(x)
-    # J'applique le dropout aux couches Dense pour éviter l'overfitting et améliorer la généralisation du modèle sur d'autres images hors notre dataset de train.
+    # J'applique le dropout aux couches Dense pour éviter l'overfitting et améliorer la généralisation
     x = Dropout(0.3)(x)
-
 
     # On ajoute une couche finale pour classification de 3 classes (bénign, normal, malin)
     # On a utilisé Softmax pour obtenir des probabilités pour chaque classe (le cas multi-classes)
     predictions = Dense(num_classes, activation='softmax')(x)
     
-    #Remarque : GlobalAveragePooling2D résume chaque feature map en une seule valeur
-    # ceci réduit les paramètres et stabilise l’entraînement  en conservant l’information essentielle pour les couches Dense.
-    #  Donc on a pas besoin de FLATTEN ici.
+    # Remarque : GlobalAveragePooling2D résume chaque feature map en une seule valeur,
+    # ce qui réduit les paramètres et stabilise l’entraînement en conservant l’information essentielle.
+    # Donc on n’a pas besoin de FLATTEN ici.
 
     # On crée le modèle final 
     model = Model(inputs=base_model.input, outputs=predictions) 
-    # Compiler le modèle pour multi-classes
 
+    # Compiler le modèle pour multi-classes
     model.compile(
         optimizer=Adam(learning_rate=1e-4),  # Optimizer Adam avec learning rate 0.0001
-        loss='categorical_crossentropy',  # On utilise la cross-entropy puisque la classification est multi-classes
-        metrics=['accuracy'] # On suit la précision comme métrique
+        loss='categorical_crossentropy',     # Cross-entropy pour classification multi-classes
+        metrics=['accuracy']                 # Suivi de la précision
     )
-
 
     return model
 
 # Exemple d'utilisation (pour debug ou notebook)
 if __name__ == "__main__":
     model = load_xception_model()
-    # On vérifie la compilation du modèle (Information utile pour debug)
-    print(model.optimizer)  # optimiseur utilisé
-    print(model.loss)       # fonction de perte utilisée
-    print(model.metrics)    # quelle métrique est suivie
+    # On vérifie la compilation du modèle (information utile pour debug)
+    print(model.optimizer)  # Optimiseur utilisé
+    print(model.loss)       # Fonction de perte utilisée
+    print(model.metrics)    # Quelle métrique est suivie
     model.summary()
