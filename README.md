@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ## Features
 
 - **Multi-class classification (3 classes)**: Distinction between benign, malignant, and normal tissues
-- **Xception architecture**: Convolutional neural network pre-trained on BUSI DATASET
+- **Xception architecture**: Convolutional neural network pre-trained on ImageNet
 - **Automated preprocessing**: Image resizing and normalization
 - **Data augmentation**: Rotation, zoom, and flip to improve generalization
 - **Comprehensive evaluation metrics**: Accuracy, confusion matrix, ROC curves, and AUC
