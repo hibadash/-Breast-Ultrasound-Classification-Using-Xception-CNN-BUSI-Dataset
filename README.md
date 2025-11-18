@@ -1,53 +1,80 @@
-# Classification d'Images de Cancer du Sein - Xception
-Ce projet propose une approche d'apprentissage profond pour la classification histopathologique automatisée des images de tissus mammaires. En exploitant l'architecture Xception basée sur les convolutions séparables en profondeur, le système réalise une classification ternaire distinguant les tissus **bénins**, **malins** et **normaux**. L'approche intègre un pipeline de prétraitement rigoureux, des stratégies d'augmentation de données adaptées au domaine médical, ainsi qu'une évaluation quantitative exhaustive des performances du modèle.
+# Breast Cancer Ultrasound Image Classification - Xception CNN
 
+This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
 
+---
 
 ## Installation
 
-Clonez le repository et installez les dépendances :
+Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/hibadash -Breast-Ultrasound-Classification-Using-Xception-CNN-BUSI-Dataset.git
+git clone https://github.com/hibadash/Breast-Ultrasound-Classification-Using-Xception-CNN-BUSI-Dataset.git
+cd Breast-Ultrasound-Classification-Using-Xception-CNN-BUSI-Dataset
 pip install -r requirements.txt
 ```
 
+---
 
+## Overview of Images to Classify (Ultrasound Type)
 
-# Apercu des images à classifier (Type Échographie )
-![Apercu des images à classifier](overview/Overview.png)
+![Overview of images to classify](overview/Overview.png)
 
+---
 
+## Features
 
-## Caractéristiques
+- **Multi-class classification (3 classes)**: Distinction between benign, malignant, and normal tissues
+- **Xception architecture**: Convolutional neural network pre-trained on BUSI DATASET
+- **Automated preprocessing**: Image resizing and normalization
+- **Data augmentation**: Rotation, zoom, and flip to improve generalization
+- **Comprehensive evaluation metrics**: Accuracy, confusion matrix, ROC curves, and AUC
 
-- **Classification multi-classe (3 classes dans notre cas d'étude)** : Distinction entre tissus bénins, malins et normaux
-- **Architecture Xception** : Réseau de neurones convolutifs pré-entraîné sur ImageNet
-- **Prétraitement automatique** : Redimensionnement et normalisation des images
-- **Augmentation de données** : Rotation, zoom, flip pour améliorer la généralisation
-- **Métriques détaillées pour l'évaluation** : Accuracy , matrice de confusion, courbes ROC et AUC
+---
 
-## Ensemble de données
+## Dataset
 
-Le modèle est entraîné sur des images de tissus mammaires :
+The model is trained on breast tissue ultrasound images from the BUSI dataset:
 
-| Classe | Description |
+| Class | Description |
 |--------|-------------|
-| **Normal** | Tissu mammaire sain |
-| **Bénin** | Tumeurs non cancéreuses (fibroadénomes, kystes) |
-| **Malin** | Tumeurs cancéreuses (carcinomes) |
+| **Normal** | Healthy breast tissue |
+| **Benign** | Non-cancerous tumors (fibroadenomas, cysts) |
+| **Malignant** | Cancerous tumors (carcinomas) |
 
-Répartition : 70% entraînement, 15% validation, 15% test
+**Data distribution:** 70% training, 15% validation, 15% test
 
+---
 
+## Contributors
 
-## Contributeurs
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/hibadash">
+        <img src="https://github.com/hibadash.png" width="80px;" alt=""/>
+        <br />
+        <sub><b>DADDA Hiba</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/zohrae">
+        <img src="https://github.com/zohrae.png" width="80px;" alt=""/>
+        <br />
+        <sub><b>LAMSSANE Fatima</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/kawtar-Berr">
+        <img src="https://github.com/kawtar-Berr.png" width="80px;" alt=""/>
+        <br />
+        <sub><b>BERROUCH Kawtar</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
-- [DADDA Hiba](https://github.com/hibadash)
-- [LAMSSANE Fatima](https://github.com/zohrae)
-- [BERROUCH Kawtar](https://github.com/kawtar-Berr)
+**Cadi Ayyad University - Faculty of Sciences Semlalia, Marrakech, Morocco**
 
-Université Cadi Ayyad - Faculté des Sciences Semlalia Marrakech, Maroc
-
-
+---
 
