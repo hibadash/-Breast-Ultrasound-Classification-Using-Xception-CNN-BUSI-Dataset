@@ -14,8 +14,8 @@ import tensorflow as tf
 # -----------------------------
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
-# Chemin du dataset (relatif à la racine du projet)
-DATASET_DIR = os.path.join(os.path.dirname(__file__), 'Dataset_BUSI') if os.path.exists(os.path.join(os.path.dirname(__file__), 'Dataset_BUSI')) else 'data/Dataset_BUSI'  
+
+DATASET_DIR = os.path.join(os.path.dirname(__file__), 'Dataset_BUSI') 
 
 # -----------------------------
 # Générateur pour l'entraînement
