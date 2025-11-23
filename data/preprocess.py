@@ -18,7 +18,14 @@ BATCH_SIZE = 32
 # Chemin du dataset - basé sur l'emplacement de ce fichier
 _current_file_dir = os.path.dirname(os.path.abspath(__file__))  
 _project_root = os.path.dirname(_current_file_dir) 
-DATASET_DIR = os.path.join(_project_root, 'data', 'Dataset_BUSI') 
+DATASET_DIR = os.path.join(_project_root, 'data', 'Dataset_BUSI')
+
+# Debug: Afficher le chemin calculé
+print(f"[DEBUG preprocess.py] __file__ = {__file__}")
+print(f"[DEBUG preprocess.py] _current_file_dir = {_current_file_dir}")
+print(f"[DEBUG preprocess.py] _project_root = {_project_root}")
+print(f"[DEBUG preprocess.py] DATASET_DIR = {DATASET_DIR}")
+print(f"[DEBUG preprocess.py] DATASET_DIR existe? {os.path.exists(DATASET_DIR)}") 
 
 # -----------------------------
 # Générateur pour l'entraînement
