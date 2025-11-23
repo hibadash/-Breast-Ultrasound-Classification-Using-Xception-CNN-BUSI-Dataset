@@ -15,8 +15,10 @@ import tensorflow as tf
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
 
-
-DATASET_DIR = 'data/Dataset_BUSI' 
+# Chemin du dataset - basé sur l'emplacement de ce fichier
+_current_file_dir = os.path.dirname(os.path.abspath(__file__))  
+_project_root = os.path.dirname(_current_file_dir) 
+DATASET_DIR = os.path.join(_project_root, 'data', 'Dataset_BUSI') 
 
 # -----------------------------
 # Générateur pour l'entraînement
