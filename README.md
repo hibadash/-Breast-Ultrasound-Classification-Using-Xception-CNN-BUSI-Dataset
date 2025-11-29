@@ -10,29 +10,25 @@
 This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
 
 ## Contributors
+<div align="center">
 
-<table>
-  <tr>
-    <td align="center" style="padding: 15px;">
-      <a href="https://github.com/hibadash">
-        <img src="https://github.com/hibadash.png" width="90px"><br>
-        <sub><b>DADDA Hiba</b></sub>
-      </a>
-    </td>
-    <td align="center" style="padding: 15px;">
-      <a href="https://github.com/zohrae">
-        <img src="https://github.com/zohrae.png" width="90px"><br>
-        <sub><b>LAMSSANE Fatima</b></sub>
-      </a>
-    </td>
-    <td align="center" style="padding: 15px;">
-      <a href="https://github.com/kawtar-Berr">
-        <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
-        <sub><b>BERROUCH Kawtar</b></sub>
-      </a>
-    </td>
-  </tr>
-</table>
+  <a href="https://github.com/hibadash" style="margin: 20px;">
+    <img src="https://github.com/hibadash.png" width="90px"><br>
+    <sub><b>DADDA Hiba</b></sub>
+  </a>
+
+  <a href="https://github.com/zohrae" style="margin: 20px;">
+    <img src="https://github.com/zohrae.png" width="90px"><br>
+    <sub><b>LAMSSANE Fatima</b></sub>
+  </a>
+
+  <a href="https://github.com/kawtar-Berr" style="margin: 20px;">
+    <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
+    <sub><b>BERROUCH Kawtar</b></sub>
+  </a>
+
+</div>
+
 
 
 ## Project Stack & Environment
