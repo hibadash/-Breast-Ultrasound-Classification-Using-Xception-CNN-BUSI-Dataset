@@ -6,44 +6,43 @@
 <p align="center">
   <img src="overview/logo_AIVA.png" alt="Overview of images to classify" width="300">
 </p>
-
-This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
-
-## Contributors
-<div align="center">
-
-  <div style="display: inline-block; margin: 20px; text-align: center;">
-    <a href="https://github.com/hibadash">
-      <img src="https://github.com/hibadash.png" width="90px"><br>
-      <sub><b>DADDA Hiba</b></sub>
-    </a>
-  </div>
-
-  <div style="display: inline-block; margin: 20px; text-align: center;">
-    <a href="https://github.com/zohrae">
-      <img src="https://github.com/zohrae.png" width="90px"><br>
-      <sub><b>LAMSSANE Fatima</b></sub>
-    </a>
-  </div>
-
-  <div style="display: inline-block; margin: 20px; text-align: center;">
-    <a href="https://github.com/kawtar-Berr">
-      <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
-      <sub><b>BERROUCH Kawtar</b></sub>
-    </a>
-  </div>
-
-</div>
-
-
-
-## Project Stack & Environment
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10-blue" style="margin-right: 5px;">
   <img src="https://img.shields.io/badge/TensorFlow-2.16.1-orange" style="margin-right: 5px;">
   <img src="https://img.shields.io/badge/Model-Xception-green" style="margin-right: 5px;">
   <img src="https://img.shields.io/badge/Dataset-BUSI-pink">
 </p>
+
+This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
+
+## Contributors
+## Contributors
+
+<table align="center">
+  <tr>
+    <td align="center" style="padding: 20px;">
+      <a href="https://github.com/hibadash">
+        <img src="https://github.com/hibadash.png" width="90px"><br>
+        <sub><b>DADDA Hiba</b></sub>
+      </a>
+    </td>
+    <td align="center" style="padding: 20px;">
+      <a href="https://github.com/zohrae">
+        <img src="https://github.com/zohrae.png" width="90px"><br>
+        <sub><b>LAMSSANE Fatima</b></sub>
+      </a>
+    </td>
+    <td align="center" style="padding: 20px;">
+      <a href="https://github.com/kawtar-Berr">
+        <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
+        <sub><b>BERROUCH Kawtar</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+
+
 
 ## Installation
 
