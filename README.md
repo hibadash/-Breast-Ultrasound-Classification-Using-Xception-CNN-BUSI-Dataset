@@ -88,7 +88,9 @@ The model is trained on breast tissue ultrasound images from the BUSI dataset:
 
 
 </table>
-
+<p align="center">
+  <img src="overview/logo_semlalia.png" alt="Overview of images to classify" width="300">
+</p>
 <p align="center">
   <i>Developed at Cadi Ayyad University – Faculty of Sciences Semlalia, Marrakech</i><br>
   <i>2025</i>
