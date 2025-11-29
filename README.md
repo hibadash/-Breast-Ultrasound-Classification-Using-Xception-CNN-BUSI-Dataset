@@ -12,20 +12,26 @@ This project proposes a deep learning approach for automated histopathological c
 ## Contributors
 <div align="center">
 
-  <a href="https://github.com/hibadash" style="margin: 20px;">
-    <img src="https://github.com/hibadash.png" width="90px"><br>
-    <sub><b>DADDA Hiba</b></sub>
-  </a>
+  <div style="display: inline-block; margin: 20px; text-align: center;">
+    <a href="https://github.com/hibadash">
+      <img src="https://github.com/hibadash.png" width="90px"><br>
+      <sub><b>DADDA Hiba</b></sub>
+    </a>
+  </div>
 
-  <a href="https://github.com/zohrae" style="margin: 20px;">
-    <img src="https://github.com/zohrae.png" width="90px"><br>
-    <sub><b>LAMSSANE Fatima</b></sub>
-  </a>
+  <div style="display: inline-block; margin: 20px; text-align: center;">
+    <a href="https://github.com/zohrae">
+      <img src="https://github.com/zohrae.png" width="90px"><br>
+      <sub><b>LAMSSANE Fatima</b></sub>
+    </a>
+  </div>
 
-  <a href="https://github.com/kawtar-Berr" style="margin: 20px;">
-    <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
-    <sub><b>BERROUCH Kawtar</b></sub>
-  </a>
+  <div style="display: inline-block; margin: 20px; text-align: center;">
+    <a href="https://github.com/kawtar-Berr">
+      <img src="https://github.com/kawtar-Berr.png" width="90px"><br>
+      <sub><b>BERROUCH Kawtar</b></sub>
+    </a>
+  </div>
 
 </div>
 
