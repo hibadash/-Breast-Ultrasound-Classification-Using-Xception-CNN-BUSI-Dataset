@@ -1,8 +1,7 @@
 # Breast Cancer Ultrasound Image Classification - Xception CNN
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="overview/logo_AIVA.png" alt="Logo 1" width="250">
-  <img src="overview/image.png" alt="Logo 2" width="250">
-</div>
+<p align="center">
+  <img src="overview/logo_AIVA.png" alt="Overview of images to classify" width="300">
+</p>
 
 This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
 
