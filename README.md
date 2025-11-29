@@ -1,10 +1,20 @@
 # Breast Cancer Ultrasound Image Classification - Xception CNN
 <p align="center">
+  <em>Proposed by Mr. AATILA Mustapha</em>
+</p>
+
+<p align="center">
   <img src="overview/logo_AIVA.png" alt="Overview of images to classify" width="300">
 </p>
 
 This project proposes a deep learning approach for automated histopathological classification of breast tissue images. By leveraging the Xception architecture based on depthwise separable convolutions, the system performs ternary classification distinguishing **benign**, **malignant**, and **normal** tissues. The approach integrates a rigorous preprocessing pipeline, medical domain-adapted data augmentation strategies, and comprehensive quantitative evaluation of model performance.
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10-blue">
+  <img src="https://img.shields.io/badge/TensorFlow-2.16.1-orange">
+  <img src="https://img.shields.io/badge/Model-Xception-green">
+  <img src="https://img.shields.io/badge/Dataset-BUSI-pink">
+</p>
 ---
 
 ## Installation
@@ -77,7 +87,10 @@ The model is trained on breast tissue ultrasound images from the BUSI dataset:
   </tr>
 </table>
 
-**Cadi Ayyad University - Faculty of Sciences Semlalia, Marrakech, Morocco**
+<p align="center">
+  <i>Developed at Cadi Ayyad University – Faculty of Sciences Semlalia, Marrakech</i><br>
+  <i>2025</i>
+</p>
 
 ---
 
