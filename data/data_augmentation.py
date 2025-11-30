@@ -17,7 +17,7 @@ import shutil
 # -----------------------------
 IMAGE_SIZE = (224, 224)
 DATASET_DIR = 'Dataset_BUSI'
-TARGET_COUNT = 600  # Nombre cible d'images par classe
+TARGET_COUNT = 700  # Nombre cible d'images par classe
 
 # Générateur d'augmentation (MÊME seed pour image et masque)
 augmentation_params = dict(

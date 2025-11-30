@@ -14,6 +14,7 @@ import tensorflow as tf
 # -----------------------------
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
+SEED = 42
 
 # Chemin du dataset - basé sur l'emplacement de ce fichier
 _current_file_dir = os.path.dirname(os.path.abspath(__file__))  
@@ -39,7 +40,8 @@ train_generator = train_datagen.flow_from_directory(
     target_size=IMAGE_SIZE,
     batch_size=BATCH_SIZE,
     class_mode='categorical', 
-    shuffle=True
+    shuffle=True,
+    seed=SEED
 )
 
 # -----------------------------
@@ -51,7 +53,8 @@ val_generator = val_datagen.flow_from_directory(
     target_size=IMAGE_SIZE,
     batch_size=BATCH_SIZE,
     class_mode='categorical',
-    shuffle=False
+    shuffle=False,
+    seed=SEED
 )
 
 # -----------------------------
@@ -63,7 +66,8 @@ test_generator = test_datagen.flow_from_directory(
     target_size=IMAGE_SIZE,
     batch_size=BATCH_SIZE,
     class_mode='categorical',
-    shuffle=False 
+    shuffle=False,
+    seed=SEED 
 )
 
 print("Préprocessing prêt : train, validation et test chargés !")
