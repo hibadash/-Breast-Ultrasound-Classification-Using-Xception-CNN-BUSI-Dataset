@@ -20,6 +20,7 @@ from tensorflow.keras.callbacks import (
 )
 from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
+from sklearn.utils.class_weight import compute_class_weight
 
 # Ajouter le chemin du projet pour les imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -96,6 +97,14 @@ def set_global_seed(seed: int):
     tf.random.set_seed(seed)
 
 
+def compute_balanced_class_weights(generator):
+    """Calcule les poids de classe équilibrés à partir d'un générateur Keras."""
+
+    class_ids = np.arange(len(generator.class_indices))
+    weights = compute_class_weight(class_weight='balanced', classes=class_ids, y=generator.classes)
+    return {idx: float(weight) for idx, weight in zip(class_ids, weights)}
+
+
 def get_class_names():
     """Récupère les noms des classes depuis le générateur"""
     class_names = sorted(list(train_generator.class_indices.keys()))
@@ -167,9 +176,9 @@ def create_callbacks():
         ReduceLROnPlateau(
             monitor='val_loss',
             mode='min',
-            factor=0.5,  # Réduire le LR de moitié
+            factor=0.3,
             patience=TrainingConfig.PATIENCE_LR_REDUCTION,
-            min_lr=1e-7,  # Learning rate minimum
+            min_lr=1e-6,
             verbose=1
         ),
         
@@ -215,14 +224,14 @@ def unfreeze_model_for_fine_tuning(model, epoch):
         base_model.trainable = True
         
         # Geler les premières couches 
-        # Débloquer seulement les 30 dernières couches
-        for layer in base_model.layers[:-30]:
+        # Débloquer seulement les 50 dernières couches
+        for layer in base_model.layers[:-50]:
             layer.trainable = False
         
         # Recompiler avec un learning rate plus faible
         model.compile(
             optimizer=Adam(learning_rate=TrainingConfig.FINE_TUNE_LEARNING_RATE),
-            loss='categorical_crossentropy',
+            loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.05),
             metrics=['accuracy']
         )
         
@@ -315,7 +324,14 @@ def train_model():
     
     # 4. Entraînement
     print("DÉBUT DE L'ENTRAÎNEMENT\n")
-    
+
+    # Calcul des poids de classes pour compenser les déséquilibres
+    class_weights = compute_balanced_class_weights(train_generator)
+    print(f"Poids de classe utilisés: {class_weights}\n")
+
+    train_generator.reset()
+    val_generator.reset()
+
     history = model.fit(
         train_generator,
         steps_per_epoch=len(train_generator),
@@ -323,7 +339,8 @@ def train_model():
         validation_steps=len(val_generator),
         epochs=TrainingConfig.EPOCHS,
         callbacks=callbacks,
-        verbose=TrainingConfig.VERBOSE
+        verbose=TrainingConfig.VERBOSE,
+        class_weight=class_weights
     )
     
     print("\n ENTRAÎNEMENT TERMINÉ!\n")
