@@ -7,6 +7,7 @@ Description: Script complet d'entraînement du modèle Xception avec gestion des
 import os
 import sys
 import json
+import random
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.callbacks import (
@@ -14,10 +15,12 @@ from tensorflow.keras.callbacks import (
     EarlyStopping,
     ReduceLROnPlateau,
     CSVLogger,
-    TensorBoard
+    TensorBoard,
+    Callback
 )
 from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
+from sklearn.utils.class_weight import compute_class_weight
 
 # Ajouter le chemin du projet pour les imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -28,7 +31,8 @@ from data.preprocess import (
     val_generator,
     IMAGE_SIZE,
     BATCH_SIZE,
-    DATASET_DIR
+    DATASET_DIR,
+    SEED
 )
 
 
@@ -42,11 +46,11 @@ class TrainingConfig:
     LEARNING_RATE = 1e-4  # Taux d'apprentissage initial
     BATCH_SIZE = BATCH_SIZE  # Taille du batch (32 par défaut)
     EPOCHS = 50  # Nombre maximum d'epochs
-    PATIENCE_EARLY_STOPPING = 10  # Patience pour EarlyStopping
-    PATIENCE_LR_REDUCTION = 5  # Patience pour réduire le learning rate
+    PATIENCE_EARLY_STOPPING = 12  # Patience pour EarlyStopping
+    PATIENCE_LR_REDUCTION = 6  # Patience pour réduire le learning rate
     
     # Fine-tuning (optionnel)
-    FINE_TUNE_AFTER_EPOCHS = 20  # Commencer le fine-tuning après N epochs
+    FINE_TUNE_AFTER_EPOCHS = 6  # Commencer le fine-tuning tôt pour améliorer la généralisation
     FINE_TUNE_LEARNING_RATE = 1e-5  # Learning rate plus faible pour fine-tuning
     
     # Chemins de sauvegarde
@@ -57,7 +61,22 @@ class TrainingConfig:
     CSV_LOG_PATH = os.path.join(RESULTS_DIR, 'training_log.csv')
     TENSORBOARD_LOG_DIR = os.path.join(RESULTS_DIR, 'tensorboard_logs')
     
+    GLOBAL_SEED = SEED
     VERBOSE = 1  # Affichage détaillé (0=silencieux, 1=progress bar, 2=une ligne par epoch)
+
+
+class FineTuneCallback(Callback):
+    """Callback pour déclencher le fine-tuning au bon moment."""
+
+    def __init__(self, unfreeze_epoch: int):
+        super().__init__()
+        self.unfreeze_epoch = unfreeze_epoch
+        self._has_unfroze = False
+
+    def on_epoch_begin(self, epoch, logs=None):
+        if not self._has_unfroze and (epoch + 1) == self.unfreeze_epoch:
+            unfreeze_model_for_fine_tuning(self.model, epoch + 1)
+            self._has_unfroze = True
 
 
 # =======================
@@ -68,6 +87,22 @@ def create_results_directory():
     os.makedirs(TrainingConfig.RESULTS_DIR, exist_ok=True)
     os.makedirs(TrainingConfig.TENSORBOARD_LOG_DIR, exist_ok=True)
     print(f"Dossier '{TrainingConfig.RESULTS_DIR}' prêt")
+
+
+def set_global_seed(seed: int):
+    """Initialise de manière déterministe toutes les librairies utilisées."""
+
+    random.seed(seed)
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
+
+
+def compute_balanced_class_weights(generator):
+    """Calcule les poids de classe équilibrés à partir d'un générateur Keras."""
+
+    class_ids = np.arange(len(generator.class_indices))
+    weights = compute_class_weight(class_weight='balanced', classes=class_ids, y=generator.classes)
+    return {idx: float(weight) for idx, weight in zip(class_ids, weights)}
 
 
 def get_class_names():
@@ -141,9 +176,9 @@ def create_callbacks():
         ReduceLROnPlateau(
             monitor='val_loss',
             mode='min',
-            factor=0.5,  # Réduire le LR de moitié
+            factor=0.3,
             patience=TrainingConfig.PATIENCE_LR_REDUCTION,
-            min_lr=1e-7,  # Learning rate minimum
+            min_lr=1e-6,
             verbose=1
         ),
         
@@ -161,7 +196,9 @@ def create_callbacks():
             write_graph=True,
             write_images=False,
             update_freq='epoch'
-        )
+        ),
+
+        FineTuneCallback(TrainingConfig.FINE_TUNE_AFTER_EPOCHS)
     ]
     
     return callbacks
@@ -187,14 +224,14 @@ def unfreeze_model_for_fine_tuning(model, epoch):
         base_model.trainable = True
         
         # Geler les premières couches 
-        # Débloquer seulement les 30 dernières couches
-        for layer in base_model.layers[:-30]:
+        # Débloquer seulement les 50 dernières couches
+        for layer in base_model.layers[:-50]:
             layer.trainable = False
         
         # Recompiler avec un learning rate plus faible
         model.compile(
             optimizer=Adam(learning_rate=TrainingConfig.FINE_TUNE_LEARNING_RATE),
-            loss='categorical_crossentropy',
+            loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.05),
             metrics=['accuracy']
         )
         
@@ -265,6 +302,7 @@ def train_model():
         history: Historique d'entraînement
     """
     # 1. Préparation
+    set_global_seed(TrainingConfig.GLOBAL_SEED)
     create_results_directory()
     print_training_info()
     
@@ -286,15 +324,23 @@ def train_model():
     
     # 4. Entraînement
     print("DÉBUT DE L'ENTRAÎNEMENT\n")
-    
+
+    # Calcul des poids de classes pour compenser les déséquilibres
+    class_weights = compute_balanced_class_weights(train_generator)
+    print(f"Poids de classe utilisés: {class_weights}\n")
+
+    train_generator.reset()
+    val_generator.reset()
+
     history = model.fit(
         train_generator,
-        steps_per_epoch=train_generator.samples // TrainingConfig.BATCH_SIZE,
+        steps_per_epoch=len(train_generator),
         validation_data=val_generator,
-        validation_steps=val_generator.samples // TrainingConfig.BATCH_SIZE,
+        validation_steps=len(val_generator),
         epochs=TrainingConfig.EPOCHS,
         callbacks=callbacks,
-        verbose=TrainingConfig.VERBOSE
+        verbose=TrainingConfig.VERBOSE,
+        class_weight=class_weights
     )
     
     print("\n ENTRAÎNEMENT TERMINÉ!\n")

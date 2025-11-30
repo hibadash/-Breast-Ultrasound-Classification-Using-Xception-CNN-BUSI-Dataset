@@ -39,13 +39,13 @@ def load_xception_model(input_shape=(224, 224, 3), num_classes=3, trainable=Fals
     # Normalisation des activations de la couche Dense pour stabiliser et accélérer l'entraînement
     x = BatchNormalization()(x)
     # J'ajoute le dropout :)
-    x = Dropout(0.4)(x)
+    x = Dropout(0.2)(x)
 
     x = Dense(256, activation='relu')(x) 
     # Normalisation après la couche Dense 2
     x = BatchNormalization()(x)
     # J'applique le dropout aux couches Dense pour éviter l'overfitting et améliorer la généralisation
-    x = Dropout(0.3)(x)
+    x = Dropout(0.25)(x)
 
     # On ajoute une couche finale pour classification de 3 classes (bénign, normal, malin)
     # On a utilisé Softmax pour obtenir des probabilités pour chaque classe (le cas multi-classes)
