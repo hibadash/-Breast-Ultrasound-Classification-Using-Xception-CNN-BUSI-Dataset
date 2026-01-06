@@ -1,11 +1,12 @@
 # Breast Cancer Ultrasound Image Classification - Xception CNN
-<img src="https://img.shields.io/badge/License-MIT-green">
+
 <p align="center">
   <em>Proposed by Mr. AATILA Mustapha</em>
 </p>
 
 <p align="center">
   <img src="overview/logo_AIVA.png" alt="Overview of images to classify" width="300">
+  <img src="https://img.shields.io/badge/License-MIT-green">
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10-blue" style="margin-right: 5px;">
