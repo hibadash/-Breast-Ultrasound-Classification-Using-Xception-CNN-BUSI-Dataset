@@ -6,9 +6,10 @@
 
 <p align="center">
   <img src="overview/logo_AIVA.png" alt="Overview of images to classify" width="300">
-  <img src="https://img.shields.io/badge/License-MIT-green">
+
 </p>
 <p align="center">
+   <img src="https://img.shields.io/badge/License-MIT-green">
   <img src="https://img.shields.io/badge/Python-3.10-blue" style="margin-right: 5px;">
   <img src="https://img.shields.io/badge/TensorFlow-2.16.1-orange" style="margin-right: 5px;">
   <img src="https://img.shields.io/badge/Model-Xception-green" style="margin-right: 5px;">
