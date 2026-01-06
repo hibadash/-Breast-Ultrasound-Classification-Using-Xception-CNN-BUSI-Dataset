@@ -1,4 +1,4 @@
-# Breast Cancer Ultrasound Image Classification - Xception CNN
+# Xception-Based Convolutional Neural Networks for Automated Breast Ultrasound Diagnosis
 
 <p align="center">
   <em>Proposed by Mr. AATILA Mustapha</em>
